@@ -3,5 +3,6 @@ terraform {
         bucket = "wordpress-state-store-1"
         key = "network/terraform.tfstate"
         region = "eu-west-1"
+        
     }
 }

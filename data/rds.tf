@@ -12,5 +12,5 @@ resource "aws_db_instance" "default" {
   skip_final_snapshot    = true
   identifier             = "wordpressdb"
   db_subnet_group_name   = data.terraform_remote_state.network.outputs.db_subnet_group_name
-  vpc_security_group_ids = [aws_security_group.RDS_SG.id]
+  vpc_security_group_ids = [aws_security_group.RDS_SG.id] 
 }
