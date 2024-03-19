@@ -4,7 +4,7 @@ resource "aws_security_group" "ALB_SG" {
   tags = {
     Name = "Load-Balancer-SG"
   }
-  vpc_id = data.terraform_remote_state.network.outputs.vpc
+  vpc_id = module.main.data.terraform_remote_state.network.outputs.vpc
 }
 
 resource "aws_security_group_rule" "alb_ingress" {
