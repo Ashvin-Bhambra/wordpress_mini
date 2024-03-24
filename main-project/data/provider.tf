@@ -10,15 +10,3 @@ terraform{
 provider "aws"{
     region = "eu-west-1"
 }
-
-module "app" {
-    source = "./app"
-}
-
-module "data" {
-    source = "./data"
-}
-
-module "net" {
-    source = "./net"
-}

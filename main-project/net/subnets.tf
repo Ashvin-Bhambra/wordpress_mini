@@ -30,6 +30,6 @@ resource "aws_subnet" "private_subnets_data" {
 }
 
 resource "aws_db_subnet_group" "rds_subnet_group" {
-  name       = "wordpress-demo--rds--subnet-group"
+  name       = "wordpress-mini-project-rds-subnet-group"
   subnet_ids = aws_subnet.private_subnets_data[*].id
 }

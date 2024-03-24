@@ -1,5 +1,5 @@
 resource "aws_launch_configuration" "wordpress_ec2" {
-  depends_on    = [aws_db_instance.default]
+  #depends_on    = [data.terraform_remote_state.data.outputs.aws_db_instance_id]
   name_prefix   = "wordpress_ec2config"
   image_id      = data.aws_ami.amazon-linux-2.id
   instance_type = "t2.micro"
@@ -15,11 +15,10 @@ resource "aws_launch_configuration" "wordpress_ec2" {
   tar -xzf latest.tar.gz
   echo "
   <?php
-  # define( 'DB_NAME', 'wordpress_db' );
-  define( 'DB_NAME', '${aws_db_instance.default.db_name}' );
+  define( 'DB_NAME', '${data.terraform_remote_state.data.outputs.rds_db_name}' );
   define( 'DB_USER', 'admin' );
   define( 'DB_PASSWORD', '${aws_secretsmanager_secret_version.db_pass.secret_string}' );
-  define( 'DB_HOST', '${aws_db_instance.default.address}' );
+  define( 'DB_HOST', '${data.terraform_remote_state.data.outputs.rds_address}' );
   define( 'DB_CHARSET', 'utf8' );
   define( 'DB_COLLATE', '' );
 
@@ -36,7 +35,7 @@ resource "aws_launch_configuration" "wordpress_ec2" {
   define( 'WP_DEBUG', false );
 
   if ( ! defined( 'ABSPATH' ) ) {
-   define( 'ABSPATH', __DIR__ . '/' );
+    define( 'ABSPATH', __DIR__ . '/' );
   }
 
   require_once ABSPATH . 'wp-settings.php';
